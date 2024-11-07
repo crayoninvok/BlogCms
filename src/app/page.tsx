@@ -6,13 +6,13 @@ export default async function Home() {
   const data: IBlog[] = await getBlogs();
 
   return (
-    <div className="pt-[5rem] hero h-[100vh] bg-slate-200">
+    <div className="pt-[5rem] hero min-h-screen p-10 bg-slate-200">
       <div className="flex flex-wrap justify-center gap-10 px-4">
         {data.map((item, idx) => {
           return (
            
             
-              <div key={idx} className="flex flex-col items-center bg-white shadow-lg rounded-lg p-4 w-[400px] h-[37rem]
+              <div key={idx} className="flex flex-col items-center mt-10 bg-white shadow-lg rounded-lg p-4 w-[400px] h-[37rem]
                hover:bg-gray-800 hover:text-white hover:shadow-2xl hover:scale-110 transition-all duration-300 gap-3">
               
                 <div className="flex justify-center mb-4">
