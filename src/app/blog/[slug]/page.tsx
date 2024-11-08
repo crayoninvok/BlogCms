@@ -1,6 +1,6 @@
-
+import RecomendationBlog from "@/components/recomendation";
 import ShareButton from "@/components/share";
-import { getBlogs, getBlogSlug } from "@/libs/blog";
+import { getBlogRecom, getBlogs, getBlogSlug } from "@/libs/blog";
 import { IBlog } from "@/types/blog";
 import { documentToReactComponents, Options } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export default async function BlogDetail({ params }: { params: { slug: string } }) {
     const blog: IBlog = await getBlogSlug(params.slug);
+    const blogNe: IBlog[] = await getBlogRecom(params.slug);
 
     const option: Options = {
         renderNode: {
@@ -60,43 +61,44 @@ export default async function BlogDetail({ params }: { params: { slug: string } 
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center bg-gray-200 p-4 md:p-6">
-            <div className="mt-16 md:mt-20 w-full max-w-screen-lg relative p-4">
-                
-               
-                <div className="w-full mb-4 md:absolute md:top-4 md:left-4 max-w-max bg-slate-300 p-2 rounded-md">
-                    <ShareButton slug={blog.fields.slug} />
-                </div>
-
-                <div className="w-full md:ml-16">
-                 
-                    <p className="text-base md:text-[20px] text-gray-700">{blog.fields.category}</p>
+        <div className="min-h-screen bg-gray-200 p-4 md:p-10">
+            <div className="flex flex-col md:flex-row md:max-w-[1600px] mx-auto p-[7rem]">
+          
+                <div className="w-full md:w-4/4 p-4 bg-white shadow-lg rounded-lg">
+                    <p className="text-sm md:text-base text-gray-600 mb-2">{blog.fields.category}</p>
                     
-                   
                     <img
                         src={blog.fields.thumbnail.fields.file.url}
                         alt="Thumbnail"
-                        className="w-full h-[20rem] md:h-[40rem] object-cover p-2 shadow-lg mb-6"
+                        className="w-full h-auto md:h-[30rem] object-cover rounded-md mb-6"
                     />
                     
-               
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">{blog.fields.title}</h1>
+                    <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-4">{blog.fields.title}</h1>
                     
-                  
-                    <div className="flex flex-col md:flex-row md:justify-between text-gray-600 mb-6">
+                    <div className="flex flex-col md:flex-row md:justify-between text-gray-600 mb-4">
                         <Link href="https://id.wikipedia.org/wiki/Saddam_Hussein">
                             <p className="text-base md:text-lg font-semibold underline">
                                 {blog.fields.author.fields.name}
                             </p>
                         </Link>
-                        <p className="text-base md:text-lg font-semibold">{blog.fields.date}</p>
+                        <p className="text-sm md:text-base">{blog.fields.date}</p>
                     </div>
-                    
-                    {/* Blog Content */}
-                    <div className="text-justify text-[16px] md:text-[20px]">
+
+                    <div className="text-justify text-[16px] md:text-[20px] leading-relaxed">
                         {documentToReactComponents(blog.fields.content, option)}
                     </div>
                 </div>
+                
+                <aside className="w-full md:w-[20rem] mt-10 md:mt-0 md:ml-8 text-center ">
+                    <div className="bg-white p-4 rounded-lg shadow-md mb-6">
+                        <h2 className="text-lg font-bold mb-3">Share this article</h2>
+                        <ShareButton slug={blog.fields.slug} />
+                    </div>
+                    <div className="w-full bg-white md:w-[20rem] p-4 rounded-lg shadow-md text-center">
+                        <h2 className="text-lg font-bold mb-3">Recommended Blogs</h2>
+                        <RecomendationBlog blogs={blogNe} />
+                    </div>
+                </aside>
             </div>
         </div>
     );

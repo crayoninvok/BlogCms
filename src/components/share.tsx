@@ -20,7 +20,6 @@ export default function ShareButton({ slug }: { slug: string }) {
 
     return (
         <div className="p-4 md:p-6 text-xl md:text-2xl w-full">
-            <p className="text-lg md:text-xl font-semibold">Bagikan</p>
             <div className="flex flex-wrap gap-3 md:flex-row md:space-x-4 mt-2">
                 {share.map((item, idx) => (
                     <Link href={`${item.Link}${domain}${slug}`} key={idx} target="_blank" rel="noopener noreferrer">
