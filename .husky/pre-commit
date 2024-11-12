@@ -1,0 +1,2 @@
+npm run cy:run -- --component
+npm run cy:run

@@ -11,8 +11,8 @@ export default async function Home() {
         {data.map((item, idx) => {
           return (
             <div
-              key={idx}
-              className="flex flex-col items-center mt-10 bg-white shadow-lg rounded-lg p-4 w-full sm:w-[300px] md:w-[400px] h-auto md:h-[37rem] 
+              key={idx} data-cy="blog-item"
+              className="blog-post flex flex-col items-center mt-10 bg-white shadow-lg rounded-lg p-4 w-full sm:w-[300px] md:w-[400px] h-auto md:h-[37rem] 
                hover:bg-gray-800 hover:text-white hover:shadow-2xl hover:scale-105 transition-all duration-300 gap-3"
             >
               <div className="flex justify-center mb-4">
@@ -27,7 +27,6 @@ export default async function Home() {
                 <h3 className="text-lg md:text-xl font-semibold">{item.fields.title}</h3>
               </div>
 
-              <Link href="https://id.wikipedia.org/wiki/Saddam_Hussein">
                 <div className="flex flex-col items-center text-center w-full sm:w-[200px] bg-slate-300 rounded-xl p-4 mt-2">
                   <div className="avatar mt-2">
                     <div className="w-[4rem] md:w-[5rem] rounded-full">
@@ -39,7 +38,7 @@ export default async function Home() {
                   </h1>
                   <h1 className="font-semibold text-xs md:text-sm">{item.fields.author.fields.email}</h1>
                 </div>
-              </Link>
+            
 
               <div className="w-full text-start mt-2">
                 <h1 className="text-xs md:text-base">Publish Date: {item.fields.date}</h1>

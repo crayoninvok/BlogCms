@@ -18,8 +18,9 @@ export default function CopyButton({ Link }: { Link: string }) {
         <div
             className="text-gray-500 cursor-pointer"
             onClick={handleCopy}
+            data-cy="copy-button"
         >
-            {copied ? <FaCheck /> : <FaLink />}
+            {copied ? <FaCheck data-cy="check-icon" /> : <FaLink data-cy="link-icon" />}
         </div>
     );
 }
